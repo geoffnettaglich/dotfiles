@@ -1,0 +1,9 @@
+
+set nu
+set ts=2
+set et
+set list listchars=tab:»·,trail:·,eol:¶,nbsp:·
+"set t_Co=256
+
+syntax on
+autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/
