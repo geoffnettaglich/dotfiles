@@ -7,10 +7,17 @@ function setjdk() {
    export JAVA_HOME=`/usr/libexec/java_home -v $@`
    export PATH=$JAVA_HOME/bin:$PATH
   fi
- }
+}
 
 function removeFromPath() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
- }
+}
 
 setjdk 1.7
+
+if which jenv > /dev/null; then 
+  eval "$(jenv init -)"; 
+  export PATH="$HOME/.jenv/bin:$PATH"
+fi
+
+

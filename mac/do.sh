@@ -1,0 +1,40 @@
+brew install vim --override-system-vi
+brew install autoconf
+brew install brew-cask
+brew install ctags
+brew install freetype
+brew install git
+brew install imagemagick
+brew install jpeg
+brew install libevent
+brew install libpng
+brew install libtool
+brew install maven
+brew install mysql
+brew install node
+brew install openssl
+brew install phantomjs
+brew install pkg-config
+brew install qt
+brew install rbenv
+brew install ruby-build
+brew install s3cmd
+brew install tmux
+
+# casks
+brew install brew-cask
+brew tap phinze/cask
+brew cask install alfred
+brew cask install eclipse-ide
+brew cask install evernote
+brew cask install google-chrome
+brew cask install hipchat
+brew cask install iterm2
+brew cask install macvim
+brew cask install sequel-pro
+brew cask install skype
+brew cask install sourcetree
+brew cask install textmate
+brew cask install vagrant
+brew cask install virtualbox
+

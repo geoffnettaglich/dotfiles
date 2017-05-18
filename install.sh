@@ -1,21 +1,33 @@
 #!/bin/bash
 
-set -e
-set -x
+#set -e
+#set -x
 
-DIR=$(dirname $0)
-RAW="$DIR/raw/*"
-FILES=`find $DIR/raw/* -type f`
+BASE="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+BASH_PROFILE="$HOME/.bash_profile"
+BASH_INCLUDE="[ -r $BASE/bash_profile ] && . $BASE/bash_profile"
 
-for FILE in $RAW ; do
+if [[ ! -r $BASH_PROFILE || -z `grep 'bash_profile' $BASH_PROFILE` ]]; then
+  echo "Updating $BASH_PROFILE"
+  echo "$BASH_INCLUDE" >> $BASH_PROFILE
+fi
+
+RAW="$BASE/raw"
+FILES=`find $RAW -type f`
+
+echo "RAW: $RAW"
+
+for FILE in $FILES ; do
   NAME=$(basename "$FILE")
   if [ -n "$NAME" ] ; then
     FILEPATH="$HOME/.$NAME"
+
     if [ -r $FILEPATH ] ; then
-      echo "File exists $FILEPATH"
+      echo -n "NOTE - Skipping existing file: $FILEPATH"
     else
-      echo "Creating file $FILEPATH"
+      echo -n "Creating file $FILEPATH"
       cp $RAW $FILEPATH
     fi
+    echo " for source: $FILE"
   fi
 done
