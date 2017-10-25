@@ -7,12 +7,12 @@ if [ ! -z "$BREW" ] ; then
 fi
 
 if [ -n "$PS1" -a -f "$PREFIX/etc/bash_completion.d/git-completion.bash" ]; then
-  echo "Git completion"
+  echo "  Git completion sourcing ..."
   . $PREFIX/etc/bash_completion.d/git-completion.bash
 fi
 
 if [ -f "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then
-  echo "Git prompt"
+  echo "  Git prompt sourcing ... "
   . $GIT_PREFIX/etc/bash_completion.d/git-prompt.sh
 fi
 
