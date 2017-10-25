@@ -4,12 +4,12 @@
 #set -x
 
 BASE="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
-BASH_PROFILE="$HOME/.bash_profile"
-BASH_INCLUDE="[ -r $BASE/bash_profile ] && . $BASE/bash_profile"
+BASH_RC="$HOME/.bashrc"
+BASH_INCLUDE="[ -r $BASE/profiles ] && . $BASE/profiles"
 
-if [[ ! -r $BASH_PROFILE || -z `grep 'bash_profile' $BASH_PROFILE` ]]; then
-  echo "Updating $BASH_PROFILE"
-  echo "$BASH_INCLUDE" >> $BASH_PROFILE
+if [[ ! -r $BASH_RC || -z `grep 'profiles' $BASH_RC` ]]; then
+  echo "Updating $BASH_RC"
+  echo "$BASH_INCLUDE" >> $BASH_RC
 fi
 
 RAW="$BASE/raw"
@@ -25,8 +25,9 @@ for FILE in $FILES ; do
     if [ -r $FILEPATH ] ; then
       echo -n "NOTE - Skipping existing file: $FILEPATH"
     else
-      echo -n "Creating file $FILEPATH"
-      cp $RAW $FILEPATH
+      echo -n "Creating file $FILEPATH from $FILE" 
+      #cp $FILE $FILEPATH
+      ln -s $FILE $FILEPATH
     fi
     echo " for source: $FILE"
   fi
