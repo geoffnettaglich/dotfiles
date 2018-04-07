@@ -4,6 +4,9 @@ set -e
 set -x
 
 DIR=$(dirname $0)
+
+
+
 RAW="$DIR/raw/*"
 FILES=`find $DIR/raw/* -type f`
 
