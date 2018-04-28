@@ -1,5 +1,12 @@
-function setup_prompt
-{
+# only bother if we are an interactive bash shell
+
+#echo "BASH VER: $BASH_VERSION"
+#echo "PS1: $PS1"
+#echo "INT: $-"
+
+if [ -n "$BASH_VERSION" ] ; then
+
+__setup_prompt() {
   local GRAY="\[\033[1;30m\]"
   local LIGHT_GRAY="\[\033[0;37m\]"
   local BLUE="\[\033[1;34m\]"
@@ -38,4 +45,6 @@ function setup_prompt
   PROMPT_COMMAND="__git_ps1 '$PS_TOP' '$PS_SIDE' "
 }
 
-setup_prompt
+__setup_prompt
+
+fi
