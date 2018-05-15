@@ -1,7 +1,5 @@
 BASE="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
-echo "Run? ${PROFILES_RUN}"
-
 if [ -z "$PROFILES_RUN" ] ; then
 
   PROFILES=`find $BASE/profile.d/*`
@@ -13,4 +11,6 @@ if [ -z "$PROFILES_RUN" ] ; then
 
   export PROFILES_RUN=`date`
   echo "Profiles run: $PROFILES_RUN"
+else
+  echo "Profiles last run: $PROFILES_RUN"
 fi
