@@ -1,7 +1,0 @@
-export HISTTIMEFORMAT="%F %T "
-
-PROFILES=$HOME/.profile.d
-for FILE in $PROFILES/* ; do
-  echo "Sourcing $FILE"
-  . $FILE
-done

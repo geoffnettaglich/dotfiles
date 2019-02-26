@@ -1,0 +1,16 @@
+BASE="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+
+if [ -z "$PROFILES_RUN" ] ; then
+
+  PROFILES=`find $BASE/profile.d/*`
+
+  for FILE in $PROFILES ; do
+    echo "Sourcing $FILE"
+    . $FILE
+  done
+
+  export PROFILES_RUN=`date`
+  echo "Profiles run: $PROFILES_RUN"
+else
+  echo "Profiles last run: $PROFILES_RUN"
+fi
