@@ -1,6 +1,6 @@
 [user]
-  name = Geoff Webb
-  email = geoffnettaglich@gmail.com
+	name = Geoff Webb
+	email = geoffnettaglich@gmail.com
 [core]
   excludesfile = ~/.gitignore_global
   quotepath = false
@@ -35,3 +35,8 @@
   changed = green
   untracked = cyan reverse
   branch = magenta
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

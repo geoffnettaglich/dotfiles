@@ -1,4 +1,7 @@
 #DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+
+complete -C '/usr/local/bin/aws_completer' aws
+
 DIR=~/.aws
 
 if [ -d $DIR ] ; then
@@ -25,14 +28,20 @@ function aws-query-tags-names ()
 
 function aws-instances ()
 {
-    local NAME=${1:-*} STATE=${2:-*};
+    local NAME=${1} STATE=${2:-*};
+    local FILTER="Name=instance-state-name,Values=$STATE";
     echo "Using: name=$NAME and state=$STATE" 1>&2;
-    echo -e -n "InstanceId\tInstanceType\tImageId\tState.Name\tLaunchTime\tPlacement.AvailabilityZone\tPrivateIpAddress\tPrivateDnsName\tPublicDnsName\t"
-    aws-query-tags-names;
+
+    if [ -n "$NAME" ] ; then
+      FILTER="$FILTER Name=tag:Name,Values=*$NAME*"
+    fi
+
+    #echo -e -n "InstanceId\tInstanceType\tImageId\tState.Name\tLaunchTime\tPlacement.AvailabilityZone\tPrivateIpAddress\tPrivateDnsName\tPublicDnsName\t"
+    #aws-query-tags-names;
     aws ec2 describe-instances \
-            --filters "Name=instance-state-name,Values=$STATE" "Name=tag:Name,Values=*$NAME*" \
-            --query "Reservations[*].Instances[*].[InstanceId, InstanceType, ImageId, State.Name, LaunchTime, Placement.AvailabilityZone, PrivateIpAddress, PrivateDnsName, PublicDnsName, `aws-query-tags`]" \
-            --output text
+            --filters $FILTER \
+            --query "Reservations[*].Instances[*].{ID:InstanceId, Type:InstanceType, AMI:ImageId, State:State.Name, Launched:LaunchTime, AZ:Placement.AvailabilityZone, PrivateIP:PrivateIpAddress, PublicIP:PublicIpAddress, Name:Tags[?Key=='Name']|[0].Value}" \
+            --output table
 }
 
 function aws-lookup ()
@@ -58,8 +67,8 @@ function aws-security-groups ()
 
 function aws-instance-counts ()
 {
-    for region in $(aws ec2 describe-regions --query 'Regions[].RegionName' --output text); do 
-        echo "Region: $region"; aws ec2 describe-instances --region "$region" --query 'Reservations[].Instances[] | length(@)'; 
+    for region in $(aws ec2 describe-regions --query 'Regions[].RegionName' --output text); do
+        echo "Region: $region"; aws ec2 describe-instances --region "$region" --query 'Reservations[].Instances[] | length(@)';
     done
 }
 

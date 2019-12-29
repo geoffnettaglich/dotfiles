@@ -42,7 +42,10 @@ __setup_prompt() {
   PS_SIDE=" $BRDR\n[ $TEXT\u$BRDR@$TEXT\h $BRDR]\$ $NO_COLOUR"
   PS1="$PS_TOP $PS_SIDE"
   PS2="$LIGHT_CYAN-$CYAN-$GRAY-$NO_COLOUR "
-  PROMPT_COMMAND="__git_ps1 '$PS_TOP' '$PS_SIDE' "
+
+  if [[ "function" == `type -t __git_ps1` ]] ; then
+    PROMPT_COMMAND="__git_ps1 '$PS_TOP' '$PS_SIDE' "
+  fi
 }
 
 __setup_prompt
