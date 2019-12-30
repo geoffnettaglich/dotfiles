@@ -9,6 +9,7 @@ if [ -n "$BASH_VERSION" ] ; then
 __setup_prompt() {
   local GRAY="\[\033[1;30m\]"
   local LIGHT_GRAY="\[\033[0;37m\]"
+  local DARK_GRAY="\[\033[90m\]"
   local BLUE="\[\033[1;34m\]"
   local LBLUE="\[\033[94m\]"
   local LIGHT_BLUE="\[\033[0;34m\]"
@@ -44,7 +45,7 @@ __setup_prompt() {
   local temp=$(tty)
   local GRAD1=${temp:5}
 
-  PS_TOP="$TITLEBAR\n$BRDR[ \e[100m\d \t$BRDR ] :: [ $TEXT\w$BRDR ]"
+  PS_TOP="$TITLEBAR\n$BRDR[ $DARK_GRAY\d \t$BRDR ] :: [ $TEXT\w$BRDR ]"
   PS_SIDE=" $BRDR\n[ $TEXT\u$BRDR@$TEXT\h $BRDR]\$ $NO_COLOUR"
   PS1="$PS_TOP $PS_SIDE"
   PS2="$LIGHT_CYAN-$CYAN-$GRAY-$NO_COLOUR "
