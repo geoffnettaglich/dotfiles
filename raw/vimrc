@@ -7,3 +7,5 @@ set list listchars=tab:»·,trail:·,eol:¶,nbsp:·
 
 syntax on
 autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=LightGray | match WhiteSpaces / \+/
+
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
