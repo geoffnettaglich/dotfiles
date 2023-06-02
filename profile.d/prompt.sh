@@ -51,7 +51,7 @@ __setup_prompt() {
   elif [ "$OS" == "Darwin" ] ; then
     TEXT="$CYAN"
   else
-    TEXT="$LBLUE"
+    TEXT="$BLUE"
   fi
 
   BRDR="$LIGHT_GRAY"

@@ -16,6 +16,11 @@ if [ -f "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then
   . $GIT_PREFIX/etc/bash_completion.d/git-prompt.sh
 fi
 
+#  if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+#    __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+#    source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+#  fi
+
 # reset prompt so git prompt can kick in
 GIT_PS_EXISTS=`type -t __git_ps1`
 

@@ -72,6 +72,12 @@ function aws-instance-counts ()
     done
 }
 
+function aws-ad-so ()
+{
+  env=${1:-stg}
+  aws-azure-login --profile drb${env}sec && aws-azure-login --profile drb${env}
+}
+
 function aws-instance-tags ()
 {
   REGIONS="ap-southeast-1 eu-central-1 eu-west-1 us-east-1 us-west-1 us-west-2"
@@ -85,3 +91,25 @@ function aws-instance-tags ()
 
   done
 }
+
+function aws-images ()
+{
+	owner=${1:-self}
+	aws ec2 describe-images --owner $owner | jq  --raw-output '
+                                      # extract instances as a flat list.
+     [.Images | sort_by(.CreationDate) | .[]
+                                      # remove unwanted data
+     | {
+         created: .CreationDate,
+         imageId: .ImageId,
+         name: .Name,
+		 description: .Description}
+     ]
+                                         # lowercase keys
+                                         # (for predictable sorting, optional)
+     |  [.[]| with_entries( .key |= ascii_downcase ) ]
+         |    (.[0] |keys_unsorted | @tsv)               # print headers
+            , (.[]|.|map(.) |@tsv)                       # print table
+     ' | column -t
+}
+
