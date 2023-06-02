@@ -1,6 +1,6 @@
 [user]
 	name = Geoff Webb
-	email = geoffnettaglich@gmail.com
+	email = geoffnettaglich@users.noreply.github.com
 [core]
   excludesfile = ~/.gitignore_global
   quotepath = false
